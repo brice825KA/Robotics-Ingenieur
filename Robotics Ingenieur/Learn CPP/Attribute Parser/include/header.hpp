@@ -4,8 +4,9 @@
     #include <cmath>
     #include <cstdio>
     #include <vector>
+    #include <string>
     #include <iostream>
-    #include <algorithm>
+    #include <cstring>
     using namespace std;
 
 vector<char *> parsing_data(string line, char *limits);    
