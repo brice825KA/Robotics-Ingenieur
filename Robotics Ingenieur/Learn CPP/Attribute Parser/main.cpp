@@ -29,7 +29,6 @@ void stock_data(vector<parse_tag_t>&data, int query, char *limits) {
         getline(cin, d);
         parsing = parsing_data(d, limits);
         parse.name_tag = strdup(parsing[0]);
-        
     }   
 }
 
