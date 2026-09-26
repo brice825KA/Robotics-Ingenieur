@@ -3,8 +3,13 @@
 
 typedef struct parse_tag_s {
     char *name_tag;
-    vector<char **>table;
+    vector<char *>table;
 } parse_tag_t;
+
+
+int search_in_stock(vector<parse_tag_t> data, string request) {
+    return 1;
+}
 
 vector<char *> parsing_data(string line, char *limits) {
     vector<char *> parsing;
@@ -23,12 +28,16 @@ void stock_data(vector<parse_tag_t>&data, int query, char *limits) {
     string d;
     vector<char *> parsing;
     parse_tag_t parse;
-    char *stock[2];
-    for (int i = 0; i <= query; i += 1) {
+
+    for (int i = 0; i < query; i += 1) {
         cin.ignore();
         getline(cin, d);
         parsing = parsing_data(d, limits);
+        if (parsing[0][0] == '/')
+            continue;
         parse.name_tag = strdup(parsing[0]);
+        parse.table = parsing;
+        data.emplace_back(parse);
     }   
 }
 
