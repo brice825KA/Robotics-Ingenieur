@@ -11,7 +11,7 @@ flags   =   -std=c++20 -g3
 all: $(bin)
 
 $(bin):   $(obj)
-	    $(cc) $(obj) $(flags) -o $(bin)
+	    $(cc) $(src) $(flags) -o $(bin)
 		rm -f *.o
 
 clean:
