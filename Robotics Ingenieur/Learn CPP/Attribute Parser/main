@@ -1,0 +1,79 @@
+#include "../include/header.hpp"
+#include <cstdlib>
+
+vector<char *> parsing_data(string line, char *limits) {
+    vector<char *> parsing;
+    char *copy_line = strdup(line.c_str());
+    char *buffer = NULL;
+
+    buffer = strtok(copy_line, limits);
+    for (int i = 0; buffer; i += 1) {
+        parsing.emplace_back(buffer);
+        buffer = strtok(NULL, limits);
+    }
+    free(copy_line);
+    return parsing;
+}
+#include "../include/header.hpp"
+#include <cstdio>
+
+int search_in_stock(vector<parse_tag_t> data, string request) {
+    vector<char *> parse = parsing_data(request, ".~");
+
+    if (parse.empty()) {
+        printf("Not Found!\n");
+        return 1;
+    }
+    for (int i = 0; i < data.size(); i += 1) {
+        if (strcmp(parse[0], data[i].name_tag) == 0) {
+            for (int j = 1; j < data[i].table.size(); j+= 1) {
+                if (strcmp(parse.back(),data[i].table[j]) == 0) {
+                    if (j + 1 < data[i].table.size()) {
+                        cout << data[i].table[j + 1] << endl;
+                        for (char *ptr : parse) free(ptr);
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+    for (char *ptr: parse) free(ptr);
+    printf("Not Found!\n");
+    return 1;
+}
+#include "../include/header.hpp"
+
+void stock_data(vector<parse_tag_t>&data, int query, char *limits) {
+    string d;
+    vector<char *> parsing;
+    parse_tag_t parse;
+
+    for (int i = 0; i < query; i += 1) {
+        getline(cin, d);
+        parsing = parsing_data(d, limits);
+        if (parsing[0][0] == '/' || parsing.empty()) {
+            for (char *ptr : parsing) free(ptr);
+            continue;
+        }
+        parse.name_tag = (parsing[0]);
+        parse.table = parsing;
+        data.emplace_back(parse);
+    }   
+}
+#include "include/header.hpp"
+
+int main(int argv, char **args) {
+    string data;
+    int query_data[2] {0};
+    char *limits = "< =\">";
+    vector<parse_tag_t> Data;
+
+    scanf("%d %d", &query_data[0], &query_data[1]);
+    cin.ignore();
+    stock_data(Data, query_data[0], limits);
+    for (int i = 0; i < query_data[1]; i += 1) {
+        getline(cin, data);
+        search_in_stock(Data, data);
+    }
+    return 0;
+}

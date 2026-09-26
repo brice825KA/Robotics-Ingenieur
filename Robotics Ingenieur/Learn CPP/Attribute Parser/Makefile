@@ -12,7 +12,7 @@ all: $(bin)
 
 $(bin):   $(obj)
 	    $(cc) $(src) $(flags) -o $(bin)
-		rm -f *.o
+		rm -f *.o src/*.o
 
 clean:
 	    rm -f $(obj)
